@@ -2545,10 +2545,11 @@ class User < ApplicationRecord
     end
   end
 
-  # TODO: Optimize caching strategies (EGG-2540)
   def educator_dashboard_user?
-    Rails.cache.fetch_with_batched_keys(
-      "should_show_educator_dashboard",
+    return @_educator_dashboard_user if defined?(@_educator_dashboard_user)
+
+    @_educator_dashboard_user = Rails.cache.fetch_with_batched_keys(
+      ["should_show_educator_dashboard", ApplicationController.region].cache_key,
       batch_object: self,
       batched_keys: :enrollments,
       expires_in: 1.hour
@@ -4046,7 +4047,19 @@ class User < ApplicationRecord
                  !(create_permission_root_account && root_account.feature_enabled?(:create_course_subaccount_picker))
                end
     can_create = create_permission_root_account || create_permission_alternate_account || create_permission_mcc_account
-    { can_create:, restrict_to_mcc: mcc_only }
+    # nil = non-admin (teacher/student) who uses /users/self/courses, no read_course_list needed.
+    # array = IDs of accounts where this admin has read_course_list; may be empty.
+    # This lets the frontend skip the homerooms fetch only for the specific selected account
+    # that lacks the permission, rather than blocking all accounts globally.
+    active_account_users = account_users.active.shard(in_region_associated_shards).preload(:account)
+    viewable_account_ids = if active_account_users.none?
+                             nil
+                           else
+                             active_account_users
+                               .select { |au| au.account.grants_right?(self, :read_course_list) }
+                               .map { |au| au.account_id.to_s }
+                           end
+    { can_create:, restrict_to_mcc: mcc_only, viewable_account_ids: }
   end
 
   def all_account_calendars

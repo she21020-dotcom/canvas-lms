@@ -592,9 +592,7 @@ CanvasRails::Application.routes.draw do
 
     resources :accessibility_issues, only: [:update]
 
-    resources :ai_experiences, only: %i[index create new show edit update destroy] do
-      get "ai_conversations", to: "ai_conversations#index", as: :ai_conversations
-    end
+    resources :ai_experiences, only: %i[index create new show edit update destroy]
     resources :ai_experiences, only: %i[index show new edit]
 
     get "notebook" => "notebook#index", :as => :notebook
@@ -1302,6 +1300,10 @@ CanvasRails::Application.routes.draw do
       delete "courses/:course_id/ai_experiences/:id", action: :destroy, as: "course_ai_experience_destroy"
       get "courses/:course_id/ai_experiences/:id/ai_conversations", action: :ai_conversations_index, as: "course_ai_experience_ai_conversations"
       get "courses/:course_id/ai_experiences/:id/ai_conversations/:conversation_id", action: :ai_conversation_show, as: "course_ai_experience_ai_conversation"
+    end
+
+    scope(controller: :study_assist) do
+      post "courses/:course_id/study_assist", action: :create, as: "course_study_assist"
     end
 
     scope(controller: :ai_conversations) do
@@ -2181,6 +2183,7 @@ CanvasRails::Application.routes.draw do
       put "accounts/:account_id/lti_registrations/:id", action: :update
       put "accounts/:account_id/lti_registrations/:id/reset", action: :reset
       post "accounts/:account_id/lti_registrations/:id/bind", action: :bind
+      delete "accounts/:account_id/lti_registrations/:id/bind", action: :unbind
       post "accounts/:account_id/lti_registrations/:id/install_from_template", action: :install_from_template
     end
 
