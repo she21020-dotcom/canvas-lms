@@ -27,6 +27,7 @@
 <h3 class="loading"><%= t "Loading..." %></h3>
 <div class="loaded" style="display:none">
   <header class="quiz-header">
+    <%= render partial: "shared/student_anti_distraction_focus_mount" if student_anti_distraction_focus_eligible? %>
     <h1><%= @quiz.quiz_title || @quiz.readable_type %></h1>
     <% if @submission.preview? %>
       <p>

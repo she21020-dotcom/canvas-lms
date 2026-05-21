@@ -123,6 +123,7 @@
 <% end %>
 
 <div id="quiz_show">
+  <%= render partial: "shared/student_anti_distraction_focus_mount" if student_anti_distraction_focus_eligible? %>
   <% if can_do(@quiz, @current_user, :update) || can_do(@quiz, @current_user, :manage) %>
   <div class="header-bar">
     <div class="header-bar-right">

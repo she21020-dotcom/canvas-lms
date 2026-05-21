@@ -307,6 +307,7 @@ class Quizzes::QuizzesController < ApplicationController
       set_section_list_js_env
       append_sis_data(hash)
       js_env(hash)
+      add_student_anti_distraction_focus_js_env
       conditional_release_js_env(@quiz.assignment, includes: [:rule])
       enhanced_rubrics_assignments_js_env(@assignment) if Rubric.enhanced_rubrics_assignments_enabled?(@context)
 
@@ -1036,6 +1037,7 @@ class Quizzes::QuizzesController < ApplicationController
     end
 
     js_env({ IS_PREVIEW: true }) if @submission.preview?
+    add_student_anti_distraction_focus_js_env unless @submission.preview?
 
     @quiz_presenter = Quizzes::TakeQuizPresenter.new(@quiz, @submission, params)
     if params[:persist_headless]

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - present Instructure, Inc.
+ * Copyright (C) 2026 - present Instructure, Inc.
  *
  * This file is part of Canvas.
  *
@@ -16,10 +16,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-@import "pages/quizzes/quizzes";
-@import "pages/quizzes/quizzes-mobile";
-@import "pages/shared/message_students";
-@import "components/ui.selectmenu";
-@import "components/conditional_release";
-@import "components/spinner";
-@import "pages/student_anti_distraction_focus";
+import {STUDENT_ANTI_DISTRACTION_FOCUS_BODY_CLASS} from './constants'
+
+export function applyBodyFocusClass(active: boolean): void {
+  if (typeof document === 'undefined') return
+
+  document.body.classList.toggle(STUDENT_ANTI_DISTRACTION_FOCUS_BODY_CLASS, active)
+}

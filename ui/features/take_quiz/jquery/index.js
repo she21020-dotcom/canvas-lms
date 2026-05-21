@@ -37,10 +37,16 @@ import '@canvas/rails-flash-notifications'
 import 'jquery-scroll-to-visible/jquery.scrollTo'
 import '@canvas/quizzes/jquery/behaviors/quiz_selectmenu'
 import {renderError, restoreOriginalMessage} from '@canvas/quizzes/jquery/quiz_form_utils'
+import {mountStudentAntiDistractionFocus} from '@canvas/student-anti-distraction-focus'
+import ready from '@instructure/ready'
 
 const I18n = createI18nScope('quizzes.take_quiz')
 
 RichContentEditor.preloadRemoteModule()
+
+ready(() => {
+  mountStudentAntiDistractionFocus()
+})
 
 $(document).ready(() => {
   let lastAnswerSelected = null

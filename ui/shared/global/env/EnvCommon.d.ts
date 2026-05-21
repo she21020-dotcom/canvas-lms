@@ -288,6 +288,7 @@ export interface EnvCommon {
 
   BLUEPRINT_COURSES_DATA: BlueprintCoursesData | undefined
   AI_FEEDBACK_LINK?: string
+  STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE?: boolean
 
   /**
    * Used by ContentTypeExternalToolDrawer for mutex management
@@ -409,6 +410,7 @@ export type OtherFeatureId =
   | 'peer_review_allocation_and_grading'
   | 'notebook'
   | 'study_assist'
+  | 'student_anti_distraction_focus'
 
 /**
  * From ApplicationHelper#set_tutorial_js_env

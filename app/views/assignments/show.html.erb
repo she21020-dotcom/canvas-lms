@@ -138,6 +138,7 @@
     <% if show_confetti %>
       <%= render partial: "confetti" %>
     <% end %>
+    <%= render partial: "shared/student_anti_distraction_focus_mount" if student_anti_distraction_focus_eligible? %>
     <div class='assignment-title'>
       <div class='title-content'>
         <h1 class="title">

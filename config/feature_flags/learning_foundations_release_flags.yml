@@ -346,3 +346,18 @@ notebook:
   description: |-
     Enables the Notebook feature. When enabled, students can
     highlight text on wiki pages and take notes.
+
+student_anti_distraction_focus:
+  state: hidden
+  display_name: Study Focus Mode
+  description: |-
+    Lets learners hide distracting Canvas chrome (navigation, notifications,
+    sidebar, grades) on assignment and quiz pages so they can focus on the
+    current activity.
+  applies_to: Course
+  root_opt_in: true
+  environments:
+    development:
+      state: allowed_on
+    ci:
+      state: allowed_on

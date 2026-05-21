@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - present Instructure, Inc.
+ * Copyright (C) 2026 - present Instructure, Inc.
  *
  * This file is part of Canvas.
  *
@@ -16,10 +16,27 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-@import "pages/quizzes/quizzes";
-@import "pages/quizzes/quizzes-mobile";
-@import "pages/shared/message_students";
-@import "components/ui.selectmenu";
-@import "components/conditional_release";
-@import "components/spinner";
-@import "pages/student_anti_distraction_focus";
+body.student-anti-distraction-focus-active {
+  #left-side,
+  #right-side-wrapper,
+  .ic-app-nav-toggle-and-crumbs,
+  #sequence_footer,
+  #module_sequence_footer,
+  .module-sequence-footer,
+  .student-anti-distraction-focus-hide-when-active {
+    display: none !important;
+  }
+
+  .ic-app-header__menu-list-link .menu-item__badge,
+  #global_nav_help_link .menu-item__badge {
+    display: none !important;
+  }
+
+  &.with-left-side #wrapper #content-wrapper {
+    margin-#{direction(left)}: 0;
+  }
+
+  &.with-right-side #content-wrapper {
+    margin-#{direction(right)}: 0;
+  }
+}

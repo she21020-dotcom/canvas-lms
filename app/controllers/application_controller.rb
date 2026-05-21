@@ -863,6 +863,19 @@ class ApplicationController < ActionController::Base
     js_env[:LTI_TOOL_SCOPES] = js_env_scopes
   end
 
+  def student_anti_distraction_focus_eligible?
+    return false unless @context.is_a?(Course)
+    return false unless @current_user
+    return false unless @context.feature_enabled?(:student_anti_distraction_focus)
+
+    !can_do(@context, @current_user, :read_as_admin)
+  end
+  helper_method :student_anti_distraction_focus_eligible?
+
+  def add_student_anti_distraction_focus_js_env
+    js_env(STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true) if student_anti_distraction_focus_eligible?
+  end
+
   def k12?
     @domain_root_account&.feature_enabled?(:k12)
   end

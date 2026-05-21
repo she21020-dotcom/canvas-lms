@@ -32,6 +32,10 @@ import SubmissionStatusPill from '@canvas/assignments/react/SubmissionStatusPill
 import {Submission} from '@canvas/assignments/graphql/student/Submission'
 import {Tooltip} from '@instructure/ui-tooltip'
 import PeerReviewNavigationLink from './PeerReviewNavigationLink'
+import {
+  isStudentAntiDistractionFocusEligible,
+  StudentAntiDistractionFocusControl,
+} from '@canvas/student-anti-distraction-focus'
 
 const I18n = createI18nScope('assignments_2_student_header')
 
@@ -169,7 +173,12 @@ class Header extends React.Component {
     } else {
       topRightComponent = (
         <Flex wrap="wrap" alignItems="center">
-          <Flex.Item padding="0 small 0 0">{this.renderLatestGrade()}</Flex.Item>
+          <Flex.Item
+            padding="0 small 0 0"
+            className="student-anti-distraction-focus-hide-when-active"
+          >
+            {this.renderLatestGrade()}
+          </Flex.Item>
           {this.props.submission?.assignedAssessments?.length > 0 &&
             !isPeerReviewGradingAndAllocationEnabled && (
               <Flex.Item>
@@ -184,6 +193,7 @@ class Header extends React.Component {
     }
     return (
       <div data-testid="assignment-student-header" id="assignments-2-student-header">
+        {isStudentAntiDistractionFocusEligible() ? <StudentAntiDistractionFocusControl /> : null}
         <Heading level="h1">
           {/* We hide this because in the designs, what visually looks like should
               be the h1 appears after the group/module links, but we need the
@@ -211,7 +221,10 @@ class Header extends React.Component {
               <Flex as="div" alignItems="center">
                 {/* EVAL-3711 Remove ICE Feature Flag */}
                 {!window.ENV.FEATURES?.instui_nav && (
-                  <Flex.Item margin="0 x-small 0 0">
+                  <Flex.Item
+                    margin="0 x-small 0 0"
+                    className="student-anti-distraction-focus-hide-when-active"
+                  >
                     <SubmissionStatusPill
                       submissionStatus={this.props.submission.submissionStatus}
                       customGradeStatus={this.props.submission.customGradeStatus}

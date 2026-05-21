@@ -259,6 +259,7 @@ class AssignmentsController < ApplicationController
              PREREQS: assignment_prereqs,
              SUBMISSION_ID: graphql_submission_id,
            })
+    add_student_anti_distraction_focus_js_env
     css_bundle :assignments_2_student
     js_bundle :assignments_show_student
     render html: "", layout: true
@@ -569,6 +570,7 @@ class AssignmentsController < ApplicationController
         if @show_locked_page
           js_bundle :module_sequence_footer
         else
+          add_student_anti_distraction_focus_js_env
           css_bundle :assignments
           js_bundle :assignment_show
         end

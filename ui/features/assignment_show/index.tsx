@@ -38,6 +38,7 @@ import DirectShareUserModal from '@canvas/direct-sharing/react/components/Direct
 import DirectShareCourseTray from '@canvas/direct-sharing/react/components/DirectShareCourseTray'
 import {setupSubmitHandler} from '@canvas/assignments/jquery/reuploadSubmissionsHelper'
 import ready from '@instructure/ready'
+import {mountStudentAntiDistractionFocus} from '@canvas/student-anti-distraction-focus'
 import ItemAssignToManager from '@canvas/context-modules/differentiated-modules/react/Item/ItemAssignToManager'
 import {captureException} from '@sentry/browser'
 import {
@@ -83,6 +84,10 @@ function unmountRoot(elementId: string) {
     roots.delete(elementId)
   }
 }
+
+ready(() => {
+  mountStudentAntiDistractionFocus()
+})
 
 ready(() => {
   const comments = document.getElementsByClassName('comment_content')

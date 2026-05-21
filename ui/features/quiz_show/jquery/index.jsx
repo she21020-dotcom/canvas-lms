@@ -45,6 +45,8 @@ import {
   mapRubricUnderscoredKeysToCamelCase,
   mapRubricAssociationUnderscoredKeysToCamelCase,
 } from '@canvas/rubrics/react/utils'
+import {mountStudentAntiDistractionFocus} from '@canvas/student-anti-distraction-focus'
+import ready from '@instructure/ready'
 
 const I18n = createI18nScope('quizzes.show')
 
@@ -406,4 +408,8 @@ $(document).ready(function () {
   }
 
   renderRubric()
+})
+
+ready(() => {
+  mountStudentAntiDistractionFocus()
 })
