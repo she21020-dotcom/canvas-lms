@@ -873,7 +873,7 @@ class ApplicationController < ActionController::Base
   helper_method :student_anti_distraction_focus_eligible?
 
   def add_student_anti_distraction_focus_js_env
-    js_env(STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true) if student_anti_distraction_focus_eligible?
+    js_env({STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true}) if student_anti_distraction_focus_eligible?
   end
 
   def k12?

@@ -204,3 +204,52 @@ OQ-5. Should institutions/accounts be able to enable/disable this mode by policy
 - Use a role-based manual checklist for visual suppression behavior where UI assertions are brittle.
 - Validate in a staged environment with feature flag rollout before broad enablement.
 - Use simple telemetry/log review for toggle failures and UI regressions after rollout.
+
+## 6) Lab 4 Handoff (GitHub Projects MCP Sync)
+
+This section is the **handoff contract** from Lab 3 (research + implementation plan) to Lab 4 (Project automation / MCP). The goal is that a reviewer can look at your GitHub Project and clearly see the work progress **match** the milestones, tasks, and acceptance criteria in this doc.
+
+### 6.1 Recommended Project item(s)
+
+Create **one parent item** and (optionally) a few child tasks/sub-items. Suggested titles:
+
+- Parent: `[feature-1] Focus Mode (Study Focus) — learner anti-distraction`
+- Child: `M1 — spec freeze + UX contract`
+- Child: `M2 — feature flag + button wiring`
+- Child: `M3 — distraction suppression rules`
+- Child: `M4 — tests + verification`
+
+If your board does not support hierarchy, use one parent issue and add checklist items for M1–M4.
+
+### 6.2 Status mapping to capture (minimum)
+
+Your Lab 4 automation should move the parent item through:
+
+- **Backlog / Todo** → when only research/planning exists (this document counts as planning)
+- **In progress** → when you start implementation work (branch created + commits)
+- **In review** → when PR is opened
+- **Done / Complete** → when PR is merged
+
+### 6.3 Evidence to attach (what the instructor can audit)
+
+When Lab 4 automation runs, ensure it can produce at least the following signals (as issue comments, project field updates, or a small evidence note you can paste into `implementation-evidence.md`):
+
+- **Branch name** and first implementation commit SHA (transition into *In progress*)
+- **PR link** (transition into *In review*)
+- **Merge commit SHA** (transition into *Done*)
+- Optional but useful: one-line milestone note each time you hit M2/M3/M4 (e.g., “M3 complete: suppression rules applied on assignment + quiz surfaces”)
+
+### 6.4 Source-of-truth links (keep consistent naming)
+
+To avoid confusion in Lab 4 and in reviews:
+
+- Use the user-facing label **Study Focus** (or your final chosen label) consistently in the project item title.
+- Track the feature flag name you introduce (planned: a new flag under `config/feature_flags/`; see §4.3).
+- Link back to:
+  - this document (research + acceptance criteria),
+  - your implementation progress log (if you keep one),
+  - your PR(s).
+
+### 6.5 Scope note for Lab 4
+
+Lab 4 should automate **status movement and milestone evidence capture** only. Do not expand product scope (e.g., preferences persistence, analytics, Pomodoro) unless you explicitly choose to do so as a new, separately-tracked item.
