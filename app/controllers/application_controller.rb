@@ -879,7 +879,7 @@ class ApplicationController < ActionController::Base
   def add_student_anti_distraction_focus_js_env
     return unless student_anti_distraction_focus_eligible?
 
-    js_env(STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true)
+    js_env({STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true})
     js_env[:FEATURES] ||= {}
     js_env[:FEATURES][:student_anti_distraction_focus] = true
   end
