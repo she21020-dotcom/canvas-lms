@@ -47,4 +47,12 @@ describe('isStudentAntiDistractionFocusEligible', () => {
     }
     expect(isStudentAntiDistractionFocusEligible()).toBe(false)
   })
+
+  it('returns true when server eligibility is set even if FEATURES omits the flag', () => {
+    window.ENV = {
+      FEATURES: {},
+      STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true,
+    }
+    expect(isStudentAntiDistractionFocusEligible()).toBe(true)
+  })
 })

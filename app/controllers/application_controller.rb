@@ -868,12 +868,20 @@ class ApplicationController < ActionController::Base
     return false unless @current_user
     return false unless @context.feature_enabled?(:student_anti_distraction_focus)
 
+    # Student View masquerades as the course test student; teachers/admins should
+    # see Study Focus there even though their real account has :read_as_admin.
+    return true if @current_user.fake_student?
+
     !can_do(@context, @current_user, :read_as_admin)
   end
   helper_method :student_anti_distraction_focus_eligible?
 
   def add_student_anti_distraction_focus_js_env
-    js_env({STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true}) if student_anti_distraction_focus_eligible?
+    return unless student_anti_distraction_focus_eligible?
+
+    js_env(STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE: true)
+    js_env[:FEATURES] ||= {}
+    js_env[:FEATURES][:student_anti_distraction_focus] = true
   end
 
   def k12?

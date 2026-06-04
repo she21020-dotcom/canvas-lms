@@ -17,7 +17,10 @@
  */
 
 export function isStudentAntiDistractionFocusEligible(): boolean {
+  // Server sets STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE when flag + role rules pass
+  // (including Student View / fake_student). FEATURES flag is set in the same path.
   return !!(
-    ENV.FEATURES?.student_anti_distraction_focus && ENV.STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE
+    ENV.STUDENT_ANTI_DISTRACTION_FOCUS_ELIGIBLE &&
+    ENV.FEATURES?.student_anti_distraction_focus !== false
   )
 }
